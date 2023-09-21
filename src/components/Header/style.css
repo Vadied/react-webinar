@@ -1,0 +1,15 @@
+.header {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+.header a {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+.header a.active-link {
+  text-decoration: none;
+}

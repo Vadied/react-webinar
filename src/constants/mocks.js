@@ -1,0 +1,4 @@
+export const characters = [{"id":6,"name":"Arwen","surname":"Undomiel","kind":{"id":4,"name":"Elf"}},{"id":8,"name":"Bilbo","surname":"Baggins","kind":{"id":5,"name":"Hobbit"}},{"id":5,"name":"Faramir","surname":"","kind":{"id":3,"name":"Men"}},{"id":9,"name":"Frodo","surname":"Baggins","kind":{"id":5,"name":"Hobbit"}},{"id":2,"name":"Gandalf","surname":"the Grey","kind":{"id":2,"name":"Maiar"}},{"id":3,"name":"Gimli","surname":"","kind":{"id":1,"name":"Dwarf"}},{"id":7,"name":"Legolas","surname":"","kind":{"id":4,"name":"Elf"}},{"id":1,"name":"Saruman","surname":"the White","kind":{"id":2,"name":"Maiar"}},{"id":4,"name":"Theoden","surname":"","kind":{"id":3,"name":"Men"}}]
+
+export const kinds = [{"id":1,"name":"Dwarf"},{"id":4,"name":"Elf"},{"id":5,"name":"Hobbit"},{"id":2,"name":"Maiar"},{"id":3,"name":"Men"}]
+
