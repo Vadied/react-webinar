@@ -1,8 +1,15 @@
-const Input = ({ value, onChange }) => {
+import "./style.css";
+
+const Input = ({ value, label = "", type = "text", onChange }) => {
   const handleChange = (e) => {
     onChange(e.target.value);
   };
-  return <input value={value} onChange={handleChange} />;
+  return (
+    <div className="text-input">
+      <label htmlFor={label}>{label}</label>
+      <input name={label} value={value} type={type} onChange={handleChange} />
+    </div>
+  );
 };
 
 export default Input;

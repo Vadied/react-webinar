@@ -1,10 +1,8 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./style.css";
 
-import Context from "./components/Context";
-import Home from "./pages/Home";
-import CharacterEdit from "./pages/CharacterEdit";
-import OnWorking from "./pages/OnWorking";
+import { Context } from "./components";
+import { CharacterEdit, CharacterNew, Home, OnWorking } from "./pages";
 
 const App = () => {
   return (
@@ -12,8 +10,10 @@ const App = () => {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/characters/new" element={<OnWorking />} />
+          <Route path="/characters/new" element={<CharacterNew />} />
           <Route path="/characters/:id" element={<CharacterEdit />} />
+          <Route path="/species/new" element={<OnWorking />} />
+          <Route path="/species/id" element={<OnWorking />} />
         </Routes>
       </BrowserRouter>
     </Context>

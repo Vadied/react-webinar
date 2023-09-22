@@ -14,7 +14,13 @@ const Header = () => {
         to="/characters/new"
         className={({ isActive }) => (isActive ? "active-link" : "")}
       >
-        Aggiungi
+        Aggiungi Personaggio
+      </NavLink>
+      <NavLink
+        to="/species/new"
+        className={({ isActive }) => (isActive ? "active-link" : "")}
+      >
+        Aggiungi Genia
       </NavLink>
     </div>
   );

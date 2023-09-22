@@ -32,7 +32,22 @@ const CharacterEdit = () => {
     getCharacter();
   }, [getCharacter]);
 
-  const handleSubmit = async () => {};
+  const handleSubmit = async (data) => {
+    setIsLoading(true);
+    try {
+      const response = await fetch(
+        `https://cvfy-api-dev.reactive-labs.io/lordofthering/genia/update`,
+        { method: "PUT", body: JSON.stringify(data) }
+      );
+
+      const id = await response.json();
+      console.log("Successo!", id);
+    } catch (e) {
+      console.log("Error - updating character:", e);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <Page title={`${character?.name || ""}`}>

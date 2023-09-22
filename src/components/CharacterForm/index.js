@@ -5,28 +5,28 @@ import { Input, Loader, Select } from "..";
 
 const CharacterForm = ({ data = {}, onSubmit }) => {
   const [isLoading, setIsLoading] = useState(true);
-  const [genies, setGenies] = useState([]);
+  const [species, setspecies] = useState([]);
   const [character, setCharacter] = useState(data);
 
-  const getGenies = async () => {
+  const getspecies = async () => {
     try {
       const response = await fetch(
         "https://cvfy-api-dev.reactive-labs.io/lordofthering/genia"
       );
 
-      const genies = await response.json();
-      if (!genies?.length) return;
+      const species = await response.json();
+      if (!species?.length) return;
 
-      setGenies(genies);
+      setspecies(species.map((s) => ({ label: s.name, value: s.id })));
     } catch (e) {
-      console.log("Error - getting genies:", e);
+      console.log("Error - getting species:", e);
     } finally {
       setIsLoading(false);
     }
   };
 
   useEffect(() => {
-    getGenies();
+    getspecies();
   }, []);
 
   const handleChange = (field) => (value) =>
@@ -35,28 +35,42 @@ const CharacterForm = ({ data = {}, onSubmit }) => {
   const genia = useMemo(() => {
     if (!character?.genia) return {};
 
-    return genies.find((k) => k.id === character.genia.id);
-  }, [character?.genia, genies]);
+    return species.find((k) => k.id === character.genia.id);
+  }, [character?.genia, species]);
+
+  const isValid = useMemo(() => {
+    return true;
+  }, []);
 
   const handleSubmit = () => {
+    if (!isValid) return;
+
     onSubmit();
   };
 
   if (isLoading) return <Loader />;
 
   return (
-    <form onSubmit={handleSubmit}>
-      <Input value={character?.name || ""} onChange={handleChange("name")} />
-      <Input
-        value={character?.surname || ""}
-        onChange={handleChange("surname")}
-      />
-      <Select
-        value={genia?.name || ""}
-        onChange={handleChange("kind")}
-        options={genies.map((k) => k.name)}
-      />
-    </form>
+    <div className="form center">
+      <form className="character-form" onSubmit={handleSubmit}>
+        <Input
+          label="Name"
+          value={character?.name || ""}
+          onChange={handleChange("name")}
+        />
+        <Input
+          label="Surname"
+          value={character?.surname || ""}
+          onChange={handleChange("surname")}
+        />
+        <Select
+          label="Genia"
+          value={genia?.name || ""}
+          onChange={handleChange("genia")}
+          options={species}
+        />
+      </form>
+    </div>
   );
 };
 
