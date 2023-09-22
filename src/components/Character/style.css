@@ -1,5 +1,5 @@
 .character {
-  background-color: #ffffff;
+  background-color: #d0e4d6;
   margin-bottom: 10px;
   border-radius: 5px;
   min-width: 150px;
@@ -10,17 +10,12 @@
   padding: 8px;
 }
 
-.character .content {
-  width: 100%;
-  height: 100%;
-}
-
-.character:hover .content {
-  position: absolute;
-  top: 9px;
-  left: 9px;
-}
-
 .character .data {
   margin-bottom: 5px;
+}
+
+.character .actions {
+  display: flex;
+  justify-content: space-evenly;
+  gap: 5px;
 }
