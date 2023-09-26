@@ -1,22 +1,21 @@
 import { useEffect, useState } from "react";
 import "./style.css";
 
-import { Character, ErrAlert, Loader } from "..";
+import { Specie, ErrAlert, Loader, Page } from "../../components";
 import { BASE_BACKEND } from "../../constants/endpoint";
+import axios from "axios";
 
-const ChatacterList = () => {
-  const [characters, setCharacters] = useState([]);
+const SpeciesList = () => {
+  const [species, setSpecies] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
 
-  const getCharacters = async () => {
+  const getSpecies = async () => {
     try {
-      const response = await fetch(`${BASE_BACKEND}/characters`);
+      const { data } = await axios.get(`${BASE_BACKEND}/genia`);
+      if (!data?.length) return;
 
-      const characters = await response.json();
-      if (!characters?.length) return;
-
-      setCharacters(characters);
+      setSpecies(data);
     } catch (e) {
       console.log("Error - getting characters:", e);
     } finally {
@@ -25,17 +24,17 @@ const ChatacterList = () => {
   };
 
   useEffect(() => {
-    getCharacters();
+    getSpecies();
   }, []);
 
   if (isLoading) return <Loader />;
 
   const handleDelete = (id) => async () => {
     try {
-      await fetch(`${BASE_BACKEND}/character/delete/${id}`, {
+      await fetch(`${BASE_BACKEND}/genia/${id}`, {
         method: "DELETE",
       });
-      await getCharacters();
+      await getSpecies();
     } catch (e) {
       console.log("Error - deleting character:", e);
       setError("Error - deleting character");
@@ -47,13 +46,15 @@ const ChatacterList = () => {
   return (
     <>
       <ErrAlert content={error} />
-      <div className="character-list">
-        {characters.map((ch, i) => (
-          <Character key={i} {...ch} onDelete={handleDelete(ch.id)} />
-        ))}
-      </div>
+      <Page title={`Tutte le specie`}>
+        <div className="character-list">
+          {species.map((specie, i) => (
+            <Specie key={i} {...specie} onDelete={handleDelete(specie.id)} />
+          ))}
+        </div>
+      </Page>
     </>
   );
 };
 
-export default ChatacterList;
+export default SpeciesList;

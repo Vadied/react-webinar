@@ -4,16 +4,15 @@ import { AiOutlineEdit, AiOutlineDelete } from "react-icons/ai";
 import "./style.css";
 import Button from "../Button";
 
-const Character = ({ id, name, surname, genia, onDelete }) => {
+const Character = ({ id, name, onDelete }) => {
   const navigate = useNavigate();
-  const goToEdit = () => navigate(`/characters/${id}`);
+  const goToEdit = () => navigate(`/species/${id}`);
 
   return (
     <div className="character">
       <div className="data">
-        {name} {surname}
+        {name}
       </div>
-      <div className="data">{genia.name}</div>
       <div className="actions">
         <Button onClick={goToEdit}>
           <AiOutlineEdit />

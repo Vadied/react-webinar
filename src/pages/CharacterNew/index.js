@@ -1,37 +1,43 @@
 import { useState } from "react";
 import "./style.css";
 
-import { Page, CharacterForm, Loader } from "../../components";
+import { Page, ErrAlert, CharacterForm, Loader } from "../../components";
 import { useNavigate } from "react-router-dom";
+import { BASE_BACKEND } from "../../constants/endpoint";
 
 const CharacterNew = () => {
   const navigate = useNavigate();
+  const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (data) => {
     setIsLoading(true);
 
     try {
-      const response = await fetch(
-        `https://cvfy-api-dev.reactive-labs.io/lordofthering/character/add`,
-        { method: "POST", body: JSON.stringify(data) }
-      );
+      const response = await fetch(`${BASE_BACKEND}/character/add`, {
+        method: "POST",
+        body: JSON.stringify(data),
+      });
 
       const id = await response.json();
 
       navigate(`/characters/${id}`);
     } catch (e) {
       console.log("Error - creating character:", e);
+      setError("Error - creating character");
     } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <Page title={`Aggiungi personaggio`}>
-      {isLoading && <Loader />}
-      {!isLoading && <CharacterForm onSubmit={handleSubmit} />}
-    </Page>
+    <>
+      <ErrAlert content={error} />
+      <Page title={`Aggiungi personaggio`}>
+        {isLoading && <Loader />}
+        {!isLoading && <CharacterForm onSubmit={handleSubmit} />}
+      </Page>
+    </>
   );
 };
 

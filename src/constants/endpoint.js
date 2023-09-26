@@ -1,0 +1,1 @@
+export const BASE_BACKEND = "https://cvfy-api-dev.reactive-labs.io/lordofthering"

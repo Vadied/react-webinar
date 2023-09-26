@@ -3,13 +3,14 @@ import { redirect, useParams } from "react-router-dom";
 import "./style.css";
 
 import { Page, CharacterForm, Loader } from "../../components";
+import { BASE_BACKEND } from "../../constants/endpoint";
 
 const CharacterEdit = () => {
   const { id } = useParams();
   if (!id) redirect("/");
 
-  const [isLoading, setIsLoading] = useState(true);
   const [character, setCharacter] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   const getCharacter = useCallback(async () => {
     try {
@@ -35,10 +36,10 @@ const CharacterEdit = () => {
   const handleSubmit = async (data) => {
     setIsLoading(true);
     try {
-      const response = await fetch(
-        `https://cvfy-api-dev.reactive-labs.io/lordofthering/genia/update`,
-        { method: "PUT", body: JSON.stringify(data) }
-      );
+      const response = await fetch(`${BASE_BACKEND}/character/update`, {
+        method: "PUT",
+        body: JSON.stringify(data),
+      });
 
       const id = await response.json();
       console.log("Successo!", id);

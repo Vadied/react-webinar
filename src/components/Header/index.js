@@ -17,6 +17,12 @@ const Header = () => {
         Aggiungi Personaggio
       </NavLink>
       <NavLink
+        to="/species"
+        className={({ isActive }) => (isActive ? "active-link" : "")}
+      >
+        Tutte le Genie
+      </NavLink>
+      <NavLink
         to="/species/new"
         className={({ isActive }) => (isActive ? "active-link" : "")}
       >
