@@ -16,7 +16,11 @@ const CharacterNew = () => {
     try {
       const response = await fetch(`${BASE_BACKEND}/character/add`, {
         method: "POST",
-        body: JSON.stringify(data),
+        body: JSON.stringify({
+          name: data.name,
+          surname: data.surname,
+          geniaId: data.geniaId,
+        }),
       });
 
       const id = await response.json();
