@@ -4,6 +4,7 @@ import "./style.css";
 import { Page, ErrAlert, CharacterForm, Loader } from "../../components";
 import { useNavigate } from "react-router-dom";
 import { BASE_BACKEND } from "../../constants/endpoint";
+import axios from "axios";
 
 const CharacterNew = () => {
   const navigate = useNavigate();
@@ -14,18 +15,12 @@ const CharacterNew = () => {
     setIsLoading(true);
 
     try {
-      const response = await fetch(`${BASE_BACKEND}/character/add`, {
-        method: "POST",
-        body: JSON.stringify({
-          name: data.name,
-          surname: data.surname,
-          geniaId: data.geniaId,
-        }),
+      await axios.post(`${BASE_BACKEND}/character/add`, {
+        name: data.name,
+        surname: data.surname,
+        geniaId: data.geniaId,
       });
-
-      const id = await response.json();
-
-      navigate(`/characters/${id}`);
+      navigate(`/`);
     } catch (e) {
       console.log("Error - creating character:", e);
       setError("Error - creating character");

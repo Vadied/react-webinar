@@ -35,7 +35,8 @@ const ChatacterList = () => {
       await fetch(`${BASE_BACKEND}/character/delete/${id}`, {
         method: "DELETE",
       });
-      await getCharacters();
+      // await getCharacters();
+      setCharacters(characters.filter((ch) => ch.id !== id));
     } catch (e) {
       console.log("Error - deleting character:", e);
       setError("Error - deleting character");

@@ -1,11 +1,13 @@
 import { useEffect, useState, useCallback } from "react";
-import { redirect, useParams } from "react-router-dom";
+import { redirect, useNavigate, useParams } from "react-router-dom";
+import axios from "axios";
 import "./style.css";
 
 import { Page, CharacterForm, Loader } from "../../components";
 import { BASE_BACKEND } from "../../constants/endpoint";
 
 const CharacterEdit = () => {
+  const navigate = useNavigate();
   const { id } = useParams();
   if (!id) redirect("/");
 
@@ -36,13 +38,8 @@ const CharacterEdit = () => {
   const handleSubmit = async (data) => {
     setIsLoading(true);
     try {
-      const response = await fetch(`${BASE_BACKEND}/character/update`, {
-        method: "PUT",
-        body: JSON.stringify(data),
-      });
-
-      const id = await response.json();
-      console.log("Successo!", id);
+      await axios.put(`${BASE_BACKEND}/character/update`, data);
+      navigate(`/`);
     } catch (e) {
       console.log("Error - updating character:", e);
     } finally {
