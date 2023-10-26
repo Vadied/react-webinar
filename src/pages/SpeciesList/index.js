@@ -31,13 +31,14 @@ const SpeciesList = () => {
 
   const handleDelete = (id) => async () => {
     try {
-      await fetch(`${BASE_BACKEND}/genia/${id}`, {
+      await fetch(`${BASE_BACKEND}/genia/delete/${id}`, {
         method: "DELETE",
       });
-      await getSpecies();
+      // await getSpecies();
+      setSpecies(species.filter((s) => s.id !== id));
     } catch (e) {
-      console.log("Error - deleting character:", e);
-      setError("Error - deleting character");
+      console.log("Error - deleting specie:", e);
+      setError("Error - deleting specie");
     } finally {
       setIsLoading(false);
     }
